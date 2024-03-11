@@ -1,0 +1,31 @@
+﻿@model Workout
+
+<div class="mb-3">
+    <label asp-for="Muscles" class="form-label">Muscles</label>
+    <select asp-for="Muscles" class="form-control">
+        <option value="Biceps">Biceps</option>
+        <option value="Triceps">Triceps</option>
+        <option value="Chest">Chest</option>
+        <option value="Back">Back</option>
+        <option value="Legs">Legs</option>
+        <option value="Abs">Abs</option>
+        <option value="Stretching">Stretching</option>
+        <option value="Warm Up">Warm Up</option>
+        <option value="Lats">Lats</option>
+        <option value="Hamstring">Hamstring</option>
+        <option value="Calves">Calves</option>
+        <option value="Quadriceps">Quadriceps</option>
+        <option value="Trapezius">Trapezius</option>
+        <option value="Shoulders">Shoulders</option>
+        <option value="Glutes">Glutes</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Intensity_Level" class="form-label">Intensity Level</label>
+    <div>
+        <input asp-for="Intensity_Level" type="radio" value="Beginner" class="form-check-input">Beginner
+        <input asp-for="Intensity_Level" type="radio" value="Intermediate" class="form-check-input">Intermediate
+        <input asp-for="Intensity_Level" type="radio" value="Expert" class="form-check-input">Expert
+    </div>
+</div>

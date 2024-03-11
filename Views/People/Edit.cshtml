@@ -1,0 +1,23 @@
+﻿@model Person
+
+@{
+    ViewBag.Title = "Edit person";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="FirstName" class="form-label">First name</label>
+        <input asp-for="FirstName" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="LastName" class="form-label">Last name</label>
+        <input asp-for="LastName" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email address</label>
+        <input asp-for="Email" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

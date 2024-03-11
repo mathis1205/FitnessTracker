@@ -1,9 +1,16 @@
-﻿@{
+﻿@model IList<Workout>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <a class="btn btn-primary" asp-area="" asp-controller="Workout" asp-action="Index">Workouts</a>
-    <a class="btn btn-primary" asp-area="" asp-controller="Voeding" asp-action="Index">Voeding</a>
+<div>
+    <h1>Workout list</h1>
+    <div class="row">
+        @foreach (var workout in Model)
+        {
+            <div class="col-4">
+                <partial name="WorkoutCardPartial" model="workout" />
+            </div>
+        }
+    </div>
 </div>
