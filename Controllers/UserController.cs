@@ -1,19 +1,16 @@
-﻿using FitnessTracker.Models;
-using Microsoft.AspNetCore.Mvc;
-using PeopleManager.Ui.Mvc.Core;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace FitnessTracker.Controllers
+namespace FitnessTracker.Controllers;
+
+public class UserController : Controller
 {
-    public class UserController : Controller
+    public IActionResult Index()
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        return View();
+    }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+    public IActionResult Create()
+    {
+        return View();
     }
 }

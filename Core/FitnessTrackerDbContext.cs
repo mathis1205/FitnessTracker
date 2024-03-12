@@ -20,7 +20,6 @@ public class FitnessTrackerDbContext(DbContextOptions<FitnessTrackerDbContext> o
             new() { FirstName = "John", LastName = "Doe", Email = "john.doe@example.com", Password = "John" }
         };
         Users.AddRange(people);
-
         SaveChanges();
     }
 }
