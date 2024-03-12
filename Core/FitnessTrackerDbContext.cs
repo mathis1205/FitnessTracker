@@ -10,14 +10,8 @@ public class FitnessTrackerDbContext(DbContextOptions<FitnessTrackerDbContext> o
 
     public void Seed()
     {
-        var workout = new List<Workout>
-        {
-            new() { Muscles = "Biceps", Explaination = "excpl" ,Beginner_Sets = "3 sets", Equipments = "Bars", Video = "https://www.youtube.com/embed/kwG2ipFRgfo"}
-        };
-        Workouts.AddRange(workout);
         var people = new List<User>
         {
-            new() { FirstName = "John", LastName = "Doe", Email = "john.doe@example.com", Password = "John" },
             new() { FirstName = "John", LastName = "Doe", Email = "a@a", Password = "a" }
         };
         Users.AddRange(people);

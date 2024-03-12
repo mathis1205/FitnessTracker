@@ -10,13 +10,15 @@
     <partial name="Create" model="Model.Workout"/>
     <button type="submit" class="btn btn-primary">Generate</button>
 }
+<br/>
 @foreach (var workout in Model.Workouts)
 {
     <div class="card">
         <div class="card-header">
-            Musclegroup: @workout.Muscles
+            @workout.WorkOut
         </div>
         <div class="card-body">
+            <p>Musclegroup: @workout.Muscles</p>
             <p>@workout.Explaination</p>
             @if (workout.Beginner_Sets != null)
             {
@@ -30,7 +32,7 @@
             {
                 <p>Sets: @workout.Intermediate_Sets</p>
             }
-            <p>Equipments: @workout.Equipments</p>
+            <p>Equipments: @(!string.IsNullOrEmpty(workout.Equipments) ? workout.Equipments : "none")</p>
             <div class="embed-responsive embed-responsive-16by9">
                 <iframe class="embed-responsive-item" src="@workout.Video" allowfullscreen></iframe>
             </div>
