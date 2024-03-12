@@ -5,9 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<PeopleManagerDbContext>(options =>
+builder.Services.AddDbContext<FitnessTrackerDbContext>(options =>
 {
-    options.UseInMemoryDatabase(nameof(PeopleManagerDbContext));
+    options.UseInMemoryDatabase(nameof(FitnessTrackerDbContext));
 });
 
 var app = builder.Build();
@@ -22,7 +22,7 @@ if (!app.Environment.IsDevelopment())
 else
 {
     using var scope = app.Services.CreateScope();
-    var peopleManagerDbContext = scope.ServiceProvider.GetRequiredService<PeopleManagerDbContext>();
+    var peopleManagerDbContext = scope.ServiceProvider.GetRequiredService<FitnessTrackerDbContext>();
     peopleManagerDbContext.Seed();
 }
 app.UseHttpsRedirection();
