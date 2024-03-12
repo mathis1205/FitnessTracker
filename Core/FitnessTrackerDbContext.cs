@@ -12,7 +12,7 @@ public class FitnessTrackerDbContext(DbContextOptions<FitnessTrackerDbContext> o
     {
         var workout = new List<Workout>
         {
-            new() { Muscles = "Biceps", Explaination = "excpl" ,Beginner_Sets = "3 sets", Equipments = "Bars", Video = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"}
+            new() { Muscles = "Biceps", Explaination = "excpl" ,Beginner_Sets = "3 sets", Equipments = "Bars", Video = "https://www.youtube.com/embed/kwG2ipFRgfo"}
         };
         Workouts.AddRange(workout);
         var people = new List<User>

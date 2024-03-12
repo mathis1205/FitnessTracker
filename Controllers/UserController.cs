@@ -13,11 +13,6 @@ public class UserController : Controller
         _dbContext = context;
     }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
-
     [HttpGet]
     public IActionResult Create()
     {

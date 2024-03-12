@@ -1,37 +1,36 @@
-﻿@model IList<Workout>
+﻿@model WorkoutPage
 @{
     ViewBag.Title = "Workouts";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@* <form method="post">
-    <partial name="CreatePartial" model="Model"/>
-
+@using (Html.BeginForm("Create", "Workout", FormMethod.Post))
+{
+    <partial name="Create" model="Model.Workout"/>
     <button type="submit" class="btn btn-primary">Generate</button>
-</form> *@
-
-@foreach (var workout in Model)
+}
+@foreach (var workout in Model.Workouts)
 {
     <div class="card">
         <div class="card-header">
-            @workout.Muscles
+            Musclegroup: @workout.Muscles
         </div>
         <div class="card-body">
             <p>@workout.Explaination</p>
             @if (workout.Beginner_Sets != null)
             {
-                <p>@workout.Beginner_Sets</p>
+                <p>Sets: @workout.Beginner_Sets</p>
             }
             else if (workout.Expert_Sets != null)
             {
-                <p>@workout.Expert_Sets</p>
+                <p>Sets: @workout.Expert_Sets</p>
             }
             else if (workout.Intermediate_Sets != null)
             {
-                <p>@workout.Intermediate_Sets</p>
+                <p>Sets: @workout.Intermediate_Sets</p>
             }
-            <p>@workout.Equipments</p>
+            <p>Equipments: @workout.Equipments</p>
             <div class="embed-responsive embed-responsive-16by9">
                 <iframe class="embed-responsive-item" src="@workout.Video" allowfullscreen></iframe>
             </div>

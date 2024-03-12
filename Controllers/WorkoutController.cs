@@ -1,25 +1,39 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using FitnessTracker.Models;
+﻿using FitnessTracker.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using PeopleManager.Ui.Mvc.Core;
 
-namespace FitnessTracker.Controllers
-{
-    public class WorkoutController : Controller
-    {
-        private readonly FitnessTrackerDbContext _context;
-        public WorkoutController(FitnessTrackerDbContext context) { _context = context; }
+namespace FitnessTracker.Controllers;
 
-        public IActionResult Index()
-        {
-            return View(_context.Workouts.ToList());
-        }
-        [HttpPost] [ValidateAntiForgeryToken]
-        public async Task<Workout> LoadWorkout(Workout workout)
-        {
-            RandomWorkout randomWorkout = new RandomWorkout();
-            return await randomWorkout._RandomWorkout(workout);
-        }
+public class WorkoutController : Controller
+{
+    private readonly FitnessTrackerDbContext _context;
+
+    public WorkoutController(FitnessTrackerDbContext context)
+    {
+        _context = context;
+    }
+
+    public IActionResult Index()
+    {
+        return View(new WorkoutPage(_context.Workouts.ToList()));
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(Models.Workout workout)
+    {
+        var randomWorkout = new RandomWorkout();
+        workout = await randomWorkout._RandomWorkout(workout);
+
+        _context.Workouts.Add(workout);
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction("Index");
     }
 }
