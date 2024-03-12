@@ -1,36 +1,40 @@
-﻿@model Workout
+﻿@model IList<Workout>
 @{
-    ViewBag.Title = "Workout";
+    ViewBag.Title = "Workouts";
 }
 
 <h2>@ViewBag.Title</h2>
 
-<form method="post">
+@* <form method="post">
     <partial name="CreatePartial" model="Model"/>
 
     <button type="submit" class="btn btn-primary">Generate</button>
-</form>
+</form> *@
 
-@if (Model != null)
+@foreach (var workout in Model)
 {
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Muscles</th>
-            <th>IntensityLevel</th>
-            <th>Equipments</th>
-            <th>Explaination</th>
-            <th>Video</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>@Model.Muscles</td>
-            <td>@Model.Intensity_Level</td>
-            <td>@Model.Equipments</td>
-            <td>@Model.Explaination</td>
-            <td>@Model.Video</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="card">
+        <div class="card-header">
+            @workout.Muscles
+        </div>
+        <div class="card-body">
+            <p>@workout.Explaination</p>
+            @if (workout.Beginner_Sets != null)
+            {
+                <p>@workout.Beginner_Sets</p>
+            }
+            else if (workout.Expert_Sets != null)
+            {
+                <p>@workout.Expert_Sets</p>
+            }
+            else if (workout.Intermediate_Sets != null)
+            {
+                <p>@workout.Intermediate_Sets</p>
+            }
+            <p>@workout.Equipments</p>
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="@workout.Video" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 }
