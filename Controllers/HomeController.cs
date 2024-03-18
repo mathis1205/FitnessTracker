@@ -1,5 +1,8 @@
 using System.Diagnostics;
+using System.Security.Claims;
 using FitnessTracker.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using PeopleManager.Ui.Mvc.Core;
 
@@ -12,30 +15,50 @@ public class HomeController : Controller
 
     public HomeController(ILogger<HomeController> logger, FitnessTrackerDbContext context)
     {
-        _logger = logger; _context = context;
+        _logger = logger;
+        _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return View();
     }
 
     [HttpPost]
-    public IActionResult Login(User user)
+    public async Task<IActionResult> Login(User user)
     {
         var validUser = _context.Users.FirstOrDefault(u => u.Email == user.Email);
 
-        if (validUser != null)
+        if (validUser != null && validUser.Password == user.Password)
         {
-            if (validUser.Password == user.Password) return RedirectToAction("Index", "Workout");
-            ModelState.AddModelError("", "Incorrect password. Please try again.");
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, validUser.Email)
+            };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            return RedirectToAction("Index", "Workout");
         }
-        else ModelState.AddModelError("", "Account not found. Please try again.");
+
+        ModelState.AddModelError("", "Invalid email or password");
         return View("Index", user);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Index", "Home");
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error() 
+    public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
