@@ -7,10 +7,10 @@
 
 @using (Html.BeginForm("Search", "Voeding", FormMethod.Post))
 {
-    <partial name="Search" model="Model.Voeding" />
+    <partial name="Search" model="Model.Voeding"/>
     <button type="submit" class="btn btn-primary">Search</button>
 }
-<br />
+<br/>
 @foreach (var voeding in Model._Voeding)
 {
     <div class="card">
@@ -18,7 +18,7 @@
             @voeding.Title
         </div>
         <div class="card-body">
-            <img src="@voeding.ImageUrl" alt="@voeding.Title" />
+            <img src="@voeding.ImageUrl" alt="@voeding.Title"/>
             <p>Ready in: @voeding.ReadyInMinutes</p>
             <p>Servings: @voeding.Servings</p>
             <p>Source: @voeding.SourceUrl</p>
