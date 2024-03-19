@@ -1,5 +1,6 @@
 ﻿using FitnessTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PeopleManager.Ui.Mvc.Core;
 
 namespace FitnessTracker.Controllers;
@@ -28,21 +29,27 @@ public class VoedingController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Search(Voeding voeding)
     {
-        var recipe = new VoedingAPI();
-        voeding = await recipe.GetRecipe(voeding);
+	    var recipeAPI = new VoedingAPI();
+	    var fetchedRecipes = await recipeAPI.GetRecipes(voeding, 6); // Fetch 5 recipes
 
-        voeding.ImageUrl = "<ImageUrl>";
-        voeding.SourceName = "<SourceName>";
-        voeding.SourceUrl = "<SourceUrl>";
-        voeding.Title = "<Title>";
-        voeding.query = "<query>";
-        voeding.intolerance = "<intolerance>";
-        voeding.cuisine = "<cuisine>";
-        voeding.diet = "<diet>";
-
-        _context.recipes.Add(voeding);
-        await _context.SaveChangesAsync();
-
-        return RedirectToAction("Index");
+	    // Pass the fetched recipes to the VoedingPage constructor
+	    var voedingPage = new VoedingPage(fetchedRecipes);
+	    return View("Index", voedingPage);
     }
+    public async Task<IActionResult> Details(int id)
+    {
+	    var recipeAPI = new VoedingAPI();
+
+	    var recipeInformation = await recipeAPI.GetRecipeInformation(id);
+
+	    if (recipeInformation == null)
+	    {
+		    return NotFound();
+	    }
+
+	    return View(recipeInformation);
+    }
+
+
+
 }

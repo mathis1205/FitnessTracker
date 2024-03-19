@@ -11,17 +11,24 @@
     <button type="submit" class="btn btn-primary">Search</button>
 }
 <br/>
-@foreach (var voeding in Model._Voeding)
-{
-    <div class="card">
-        <div class="card-header">
-            @voeding.Title
-        </div>
-        <div class="card-body">
-            <img src="@voeding.ImageUrl" alt="@voeding.Title"/>
-            <p>Ready in: @voeding.ReadyInMinutes</p>
-            <p>Servings: @voeding.Servings</p>
-            <p>Source: @voeding.SourceUrl</p>
-        </div>
-    </div>
-}
+<h1>Recipes</h1>
+
+<div class="row">
+	@foreach (var recipe in Model._Voeding)
+	{
+		<div class="col-md-4 mb-3">
+			<div class="card">
+				<img src="@recipe.Image" class="card-img-top" alt="@recipe.Title">
+				<div class="card-body">
+					<h5 class="card-title">@recipe.Title</h5>
+					<!-- Display other recipe information here -->
+					<p>Ready in: @recipe.ReadyInMinutes</p>
+					<p>Servings: @recipe.Servings</p>
+					<a asp-controller="Voeding" asp-action="Details" asp-route-id="@recipe.Id">View Details</a>
+				</div>
+			</div>
+		</div>
+	}
+</div>
+
+

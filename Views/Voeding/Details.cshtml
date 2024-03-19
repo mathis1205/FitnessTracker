@@ -1,0 +1,14 @@
+﻿@model Voeding
+
+<h1>@Model.Title</h1>
+
+<!-- Display recipe details -->
+<img src="@Model.Image" alt="@Model.Title" />
+<p>Ready in: @Model.ReadyInMinutes minutes</p>
+<p>Servings: @Model.Servings</p>
+<p>Source Name: @Model.SourceName</p>
+<p>Source URL: <a href="@Model.SourceUrl">@Model.SourceUrl</a></p>
+
+<!-- Add more details as needed -->
+
+<a asp-controller="Voeding" asp-action="Index">Back to Recipes</a>
