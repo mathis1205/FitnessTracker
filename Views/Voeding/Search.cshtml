@@ -1,0 +1,60 @@
+﻿@model Voeding
+
+<div class="mb-3">
+    <label asp-for="diet" class="form-label">Select Diet:</label>
+    <select asp-for="diet" class="form-control">
+        <option value="">None</option>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="vegan">Vegan</option>
+        <option value="paleo">Paleo</option>
+        <option value="keto">Keto</option>
+        <option value="glutenFree">Gluten free</option>
+        <option value="lactoVegetarian">Lacto-Vegetarian</option>
+        <option value="ovoVegetarian">Ovo-Vegetarian</option>
+        <option value="pescetarian">Pescetarian</option>
+        <option value="primal">Primal</option>
+        <option value="lowFodmap">Low FODMAP</option>
+        <option value="whole30">Whole30</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label asp-for="cuisine" class="form-label">Select Cuisine:</label>
+    <select asp-for="cuisine" class="form-control">
+        <option value="">Any</option>
+        <option value="african">African</option>
+        <option value="chinese">Chinese</option>
+        <option value="french">French</option>
+        <option value="indian">Indian</option>
+        <option value="italian">Italian</option>
+        <option value="japanese">Japanese</option>
+        <option value="mediterranean">Mediterranean</option>
+        <option value="mexican">Mexican</option>
+        <option value="spanish">Spanish</option>
+        <option value="thai">Thai</option>
+        <option value="vietnamese">Vietnamese</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <label asp-for="intolerance" class="form-label">Select Intolerance:</label>
+    <select asp-for="intolerance" class="form-control">
+        <option value="">None</option>
+        <option value="dairy">Dairy</option>
+        <option value="egg">Egg</option>
+        <option value="gluten">Gluten</option>
+        <option value="grain">Grain</option>
+        <option value="peanut">Peanut</option>
+        <option value="seafood">Seafood</option>
+        <option value="sesame">Sesame</option>
+        <option value="shellfish">Shellfish</option>
+        <option value="soy">Soy</option>
+        <option value="sulfite">Sulfite</option>
+        <option value="tree nut">Tree Nut</option>
+        <option value="wheat">Wheat</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label asp-for="query" class="form-label">Search for:</label>
+    <input asp-for="query" type="text" class="form-control">
+</div>

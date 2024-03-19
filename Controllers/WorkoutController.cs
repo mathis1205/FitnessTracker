@@ -26,7 +26,7 @@ public class WorkoutController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Models.Workout workout)
+    public async Task<IActionResult> Create(Workout workout)
     {
         var randomWorkout = new RandomWorkout();
         workout = await randomWorkout._RandomWorkout(workout);

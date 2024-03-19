@@ -18,6 +18,11 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\User\CreateEditPartial.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Voeding\Search.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Voeding\Search.cshtml" />
   </ItemGroup>
 
 </Project>
