@@ -21,9 +21,6 @@
 				<img src="@recipe.Image" class="card-img-top" alt="@recipe.Title">
 				<div class="card-body">
 					<h5 class="card-title">@recipe.Title</h5>
-					<!-- Display other recipe information here -->
-					<p>Ready in: @recipe.ReadyInMinutes</p>
-					<p>Servings: @recipe.Servings</p>
 					<a asp-controller="Voeding" asp-action="Details" asp-route-id="@recipe.Id">View Details</a>
 				</div>
 			</div>

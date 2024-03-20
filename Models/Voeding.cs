@@ -13,11 +13,4 @@ public class Voeding
 	public string? cuisine { get; set; }
 	public string? intolerance { get; set; }
 	public string? query { get; set; }
-	public List<string>? Ingredients { get; set; } // Ingredients for recipe details
-	public string? Calories { get; set; }
-	public string? Fat { get; set; }
-	public string? Carbohydrates { get; set; }
-	public string? Protein { get; set; }
-	public string Description { get; set; }
-	public string Instructions { get; set; }
 }
