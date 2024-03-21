@@ -9,6 +9,20 @@
 <p>Source Name: @Model.SourceName</p>
 <p>Source URL: <a href="@Model.SourceUrl">@Model.SourceUrl</a></p>
 
-<!-- Add more details as needed -->
+<!-- Check if recipe is already in favorites -->
+@if (ViewBag.IsFavorite)
+{
+	<form asp-controller="Voeding" asp-action="RemoveFromFavorites" method="post">
+		<input type="hidden" name="recipeId" value="@Model.Id" />
+		<button type="submit" class="btn btn-danger">Remove from Favorites</button>
+	</form>
+}
+else
+{
+	<form asp-controller="Voeding" asp-action="AddToFavorites" method="post">
+		<input type="hidden" name="recipeId" value="@Model.Id" />
+		<button type="submit" class="btn btn-primary">Add to Favorites</button>
+	</form>
+}
 
 <a asp-controller="Voeding" asp-action="Index">Back to Recipes</a>

@@ -1,0 +1,30 @@
+﻿@model List<Voeding>
+
+<h1>Favorite Recipes</h1>
+
+@if (Model != null && Model.Any())
+{
+	<div class="row">
+		@foreach (var recipe in Model)
+		{
+			<div class="col-md-4 mb-3">
+				<div class="card">
+					<img src="@recipe.Image" class="card-img-top" alt="@recipe.Title">
+					<div class="card-body">
+						<h5 class="card-title">@recipe.Title</h5>
+						<form asp-controller="Voeding" asp-action="RemoveFromFavorites" method="post">
+							<input type="hidden" name="recipeId" value="@recipe.Id" />
+							<button type="submit" class="btn btn-danger">Remove</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+}
+else
+{
+	<p>No favorite recipes found.</p>
+}
+
+<a asp-controller="Voeding" asp-action="Index">Back to Recipes</a>

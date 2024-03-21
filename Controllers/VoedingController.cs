@@ -39,7 +39,6 @@ public class VoedingController : Controller
     public async Task<IActionResult> Details(int id)
     {
 	    var recipeAPI = new VoedingAPI();
-
 	    var recipeInformation = await recipeAPI.GetRecipeInformation(id);
 
 	    if (recipeInformation == null)
@@ -47,9 +46,54 @@ public class VoedingController : Controller
 		    return NotFound();
 	    }
 
+	    var isFavorite = _context.FavoriteRecipes.Any(fr =>fr.RecipeId == id);
+	    ViewBag.IsFavorite = (bool?)isFavorite;
+
 	    return View(recipeInformation);
     }
 
+    public IActionResult Favorites()
+    {
+	    var favoriteRecipeIds = _context.FavoriteRecipes.Select(fr => fr.RecipeId).ToList();
 
+	    var favoriteRecipes = _context.recipes.Where(r => favoriteRecipeIds.Contains(r.Id)).ToList();
+
+	    return View("Favorites");
+    }
+    [HttpPost]
+    public async Task<IActionResult> AddToFavorites(int? recipeId)
+    {
+	    if (recipeId == null)
+	    {
+		    return BadRequest("Recipe ID cannot be null.");
+	    }
+
+	    var id = recipeId.GetValueOrDefault();
+	    _context.FavoriteRecipes.Add(new FavoriteRecipe { RecipeId = id });
+	    await _context.SaveChangesAsync();
+
+	    return RedirectToAction("Details", new { id });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> RemoveFromFavorites(int? recipeId)
+    {
+	    if (recipeId == null)
+	    {
+		    return BadRequest("Recipe ID cannot be null.");
+	    }
+
+	    var id = recipeId.GetValueOrDefault();
+	    var favoriteRecipe = _context.FavoriteRecipes.FirstOrDefault(fr => fr.RecipeId == id);
+	    if (favoriteRecipe == null)
+	    {
+		    return NotFound();
+	    }
+
+	    _context.FavoriteRecipes.Remove(favoriteRecipe);
+	    await _context.SaveChangesAsync();
+
+	    return RedirectToAction("Details", new { id });
+    }
 
 }
