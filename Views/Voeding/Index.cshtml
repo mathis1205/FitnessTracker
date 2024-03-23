@@ -1,14 +1,15 @@
 ﻿@model VoedingPage
+
 @{
-    ViewBag.Title = "recipes";
+	ViewBag.Title = "recipes";
 }
 
 <h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("Search", "Voeding", FormMethod.Post))
 {
-    <partial name="Search" model="Model.Voeding"/>
-    <button type="submit" class="btn btn-primary">Search</button>
+	<partial name="Search" model="Model.Voeding"/>
+	<button type="submit" class="btn btn-primary">Search</button>
 }
 <br/>
 <div class="mt-3">
@@ -30,5 +31,3 @@
 		</div>
 	}
 </div>
-
-

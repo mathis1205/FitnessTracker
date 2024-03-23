@@ -3,7 +3,7 @@
 <h1>@Model.Title</h1>
 
 <!-- Display recipe details -->
-<img src="@Model.Image" alt="@Model.Title" />
+<img src="@Model.Image" alt="@Model.Title"/>
 <p>Ready in: @Model.ReadyInMinutes minutes</p>
 <p>Servings: @Model.Servings</p>
 <p>Source Name: @Model.SourceName</p>
@@ -13,14 +13,14 @@
 @if (ViewBag.IsFavorite)
 {
 	<form asp-controller="Voeding" asp-action="RemoveFromFavorites" method="post">
-		<input type="hidden" name="recipeId" value="@Model.Id" />
+		<input type="hidden" name="recipeId" value="@Model.Id"/>
 		<button type="submit" class="btn btn-danger">Remove from Favorites</button>
 	</form>
 }
 else
 {
 	<form asp-controller="Voeding" asp-action="AddToFavorites" method="post">
-		<input type="hidden" name="recipeId" value="@Model.Id" />
+		<input type="hidden" name="recipeId" value="@Model.Id"/>
 		<button type="submit" class="btn btn-primary">Add to Favorites</button>
 	</form>
 }

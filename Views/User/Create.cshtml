@@ -1,7 +1,7 @@
 ﻿@model User
 
 @{
-    ViewBag.Title = "Create User";
+    ViewBag.Title = "Register";
 }
 
 <h1>@ViewBag.Title</h1>
@@ -9,4 +9,5 @@
 <form method="post">
     <partial name="CreateEditPartial" model="Model"/>
     <button type="submit" class="btn btn-primary">Create</button>
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Back to login</a>
 </form>
