@@ -15,7 +15,7 @@ public class VoedingController : Controller
 
 	public IActionResult Index()
 	{
-		return View(new VoedingPage(_context.recipes.ToList()));
+		return View(new VoedingPage([.. _context.recipes]));
 	}
 
 	[HttpGet]
@@ -29,7 +29,7 @@ public class VoedingController : Controller
 	public async Task<IActionResult> Search(Voeding voeding)
 	{
 		var recipeAPI = new VoedingAPI();
-		var fetchedRecipes = await recipeAPI.GetRecipes(voeding, 6);
+		var fetchedRecipes = await recipeAPI.GetRecipes(voeding, 24);
 
 		var voedingPage = new VoedingPage(fetchedRecipes);
 		return View("Index", voedingPage);

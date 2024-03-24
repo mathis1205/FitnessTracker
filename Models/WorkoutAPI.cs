@@ -9,7 +9,6 @@ public class RandomWorkout
 {
     public async Task<Workout?> _RandomWorkout(Workout oWorkout)
     {
-        using var client = new HttpClient();
         var request = new HttpRequestMessage
         {
             Method = HttpMethod.Get,
@@ -20,7 +19,7 @@ public class RandomWorkout
                 { "X-RapidAPI-Host", "work-out-api1.p.rapidapi.com" }
             }
         };
-        var response = await client.SendAsync(request);
+        var response = await new HttpClient().SendAsync(request);
         if (!response.IsSuccessStatusCode) return null;
         var jsonString = await response.Content.ReadAsStringAsync();
         var myDeserializedClassList = JsonConvert.DeserializeObject<List<Root>>(jsonString);
@@ -61,19 +60,14 @@ public class RandomWorkout
         {
             driver.Navigate().GoToUrl(url);
             var firstVideoLink = driver.FindElement(By.XPath("//a[@id='video-title']"));
-            var videoUrl = firstVideoLink.GetAttribute("href");
-            return GetEmbedUrl(videoUrl);
+            return GetEmbedUrl(firstVideoLink.GetAttribute("href"));
         }
-        finally
-        {
-            driver.Quit();
-        }
+        finally { driver.Quit(); }
     }
 
     private static string GetEmbedUrl(string fullYoutubeUrl)
     {
-        var uri = new Uri(fullYoutubeUrl);
-        var videoId = HttpUtility.ParseQueryString(uri.Query).Get("v");
+        var videoId = HttpUtility.ParseQueryString(new Uri(fullYoutubeUrl).Query).Get("v");
         return "https://www.youtube.com/embed/" + videoId;
     }
 }

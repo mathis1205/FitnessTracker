@@ -1,6 +1,8 @@
 ﻿using FitnessTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PeopleManager.Ui.Mvc.Core;
+using System;
 
 namespace FitnessTracker.Controllers;
 
@@ -13,9 +15,10 @@ public class WorkoutController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    [HttpGet]
+    public async Task<IActionResult> Index()
     {
-        return View(new WorkoutPage(_context.Workouts.ToList()));
+        return View(new WorkoutPage(await _context.Workouts.ToListAsync()));
     }
 
     [HttpGet]
@@ -26,13 +29,29 @@ public class WorkoutController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Workout workout)
+    public async Task<IActionResult> Create(string action, Workout workout)
     {
-        var randomWorkout = new RandomWorkout();
-        workout = await randomWorkout._RandomWorkout(workout);
+        if (action == "GenerateWorkout")
+        {
+            _context.Workouts.Add(await new RandomWorkout()._RandomWorkout(workout));
+            await _context.SaveChangesAsync();
 
-        _context.Workouts.Add(workout);
-        await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        if (action == "GenerateSession")
+        {
+            for (var i = 0; i < 5; i++)
+            {
+                _context.Workouts.Add(await new RandomWorkout()._RandomWorkout(workout));
+            }
+            await _context.SaveChangesAsync();
+        }
+        else if (action == "Reset")
+        {
+            _context.Workouts.RemoveRange(_context.Workouts);
+            await _context.SaveChangesAsync();
+        }
 
         return RedirectToAction("Index");
     }
